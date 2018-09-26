@@ -26,4 +26,7 @@
 
 ## Extras ##
 /src/main/resources/application.properties
+## VS Code config
 .vscode/
+## Angular Dev Code##
+client/
