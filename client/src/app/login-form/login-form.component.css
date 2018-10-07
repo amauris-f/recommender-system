@@ -1,0 +1,16 @@
+.jumbotron {
+  /* background: url(""); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 600px;
+}
+
+.container {
+  background-color: white;
+  border-radius: 2%;
+}
+
+.container > button, p{
+  display: inline-block;
+  justify-content: space-between;
+}
