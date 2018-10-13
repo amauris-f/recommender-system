@@ -1,10 +1,14 @@
 package com.herokuapp.frs.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +25,9 @@ public class User {
 
   @Column(name="email")
   private String email;
+
+  @OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+  private List<Review> reviews;
 
   public void setId(int id) {
     this.id = id;
@@ -45,4 +52,11 @@ public class User {
     return email;
   }
 
+  public List<Review> getReviews() {
+    return reviews;
+  }
+
+  public void setReviews(List<Review> reviews) {
+    this.reviews = reviews;
+  }
 }
