@@ -1,10 +1,14 @@
 package com.herokuapp.frs.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -29,6 +33,8 @@ public class Restaurant{
   @Column(name="secondary_color")
   private String secondaryColor;
 
+  @OneToMany(cascade=CascadeType.ALL, mappedBy="restaurant")
+  private List<Item> menu;
 
   public int getId() {
     return id;
@@ -68,6 +74,15 @@ public class Restaurant{
 
   public void setSecondaryColor(String secondaryColor) {
     this.secondaryColor = secondaryColor;
+  }
+
+  
+  public List<Item> getMenu() {
+    return menu;
+  }
+
+  public void setMenu(List<Item> menu) {
+    this.menu = menu;
   }
 
 }
