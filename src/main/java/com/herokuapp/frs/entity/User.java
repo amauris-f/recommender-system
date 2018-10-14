@@ -11,8 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name="user")
+@Table(name="user", schema="recommender_system")
 public class User {
   
   @Id
@@ -27,6 +29,7 @@ public class User {
   private String email;
 
   @OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+  @JsonIgnore
   private List<Review> reviews;
 
   public void setId(int id) {
