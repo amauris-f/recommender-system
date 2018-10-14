@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="restaurant")
+@Table(name="restaurant", schema="recommender_system")
 public class Restaurant{
 
   @Id

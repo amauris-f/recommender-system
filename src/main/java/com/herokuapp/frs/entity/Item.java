@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="item")
+@Table(name="item", schema="recommender_system")
 public class Item {
 
   @Id

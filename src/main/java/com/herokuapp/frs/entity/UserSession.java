@@ -9,8 +9,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_session")
-public class Session{
+@Table(name="user_session" schema="recommender_system")
+public class UserSession{
 
   @Id
   @Column(name="id")
