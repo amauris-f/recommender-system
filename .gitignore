@@ -25,7 +25,7 @@
 /.nb-gradle/
 
 ## Extras ##
-/src/main/resources/application.properties
+#/src/main/resources/application.properties
 ## VS Code config
 .vscode/
 ## Angular Dev Code##
