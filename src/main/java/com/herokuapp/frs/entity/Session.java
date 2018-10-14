@@ -3,15 +3,18 @@ package com.herokuapp.frs.entity;
 import java.time.ZonedDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="session")
+@Table(name="user_session")
 public class Session{
+
+  @Id
+  @Column(name="id")
+  private int id;
 
   @Column(name="session_id")
   private String sessionId;
@@ -21,7 +24,6 @@ public class Session{
   private User user;
 
   @Column(name="expiration")
-  @Temporal(TemporalType.TIMESTAMP)
   private ZonedDateTime expiration;
 
   public User getUser() {
@@ -46,5 +48,13 @@ public class Session{
 
   public void setSessionId(String sessionId) {
     this.sessionId = sessionId;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 }

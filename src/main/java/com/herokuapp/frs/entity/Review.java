@@ -2,13 +2,18 @@ package com.herokuapp.frs.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="review")
+@Table(name="review", schema="recommender_system")
 public class Review{
+
+  @Id
+  @Column(name="id")
+  private int id;
 
   @ManyToOne
   @JoinColumn(name="user_id")
@@ -43,5 +48,13 @@ public class Review{
 
   public void setRating(int rating) {
     this.rating = rating;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 }
