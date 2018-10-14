@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_session" schema="recommender_system")
+@Table(name="user_session", schema="recommender_system")
 public class UserSession{
 
   @Id
