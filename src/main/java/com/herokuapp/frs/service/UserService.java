@@ -11,4 +11,6 @@ public interface UserService {
   public User getUser(int id);
 
   public void saveUser(User user);
+
+  public User validOrNull(String username, String password);
 }
