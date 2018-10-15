@@ -1,6 +1,5 @@
 package com.herokuapp.frs.rest;
 
-import javax.activity.InvalidActivityException;
 
 import com.herokuapp.frs.exception.InvalidCredentialsException;
 import com.herokuapp.frs.exception.InvalidCredentialsResponse;
