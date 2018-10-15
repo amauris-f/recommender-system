@@ -35,4 +35,11 @@ public class UserDAOImpl implements UserDAO {
     session.saveOrUpdate(user);
 	}
 
+  @Override
+  public User getUserByUsername(String username) {
+    Session session = sessionFactory.getCurrentSession();
+    String hql = String.format("FROM User WHERE username=\'%s\'",username);
+    return (User)session.createQuery(hql).uniqueResult();
+  }
+
 }
