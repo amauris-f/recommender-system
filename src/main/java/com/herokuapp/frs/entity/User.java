@@ -20,6 +20,7 @@ public class User {
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   @Column(name="id")
+  @JsonIgnore
   private int id;
 
   @Column(name="username")
@@ -27,6 +28,14 @@ public class User {
 
   @Column(name="email")
   private String email;
+
+  @JsonIgnore
+  @Column(name="password")
+  private String password;
+
+  @JsonIgnore
+  @Column(name="salt")
+  private String salt;
 
   @OneToMany(cascade=CascadeType.ALL, mappedBy="user")
   @JsonIgnore
@@ -61,5 +70,21 @@ public class User {
 
   public void setReviews(List<Review> reviews) {
     this.reviews = reviews;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getSalt() {
+    return salt;
+  }
+
+  public void setSalt(String salt) {
+    this.salt = salt;
   }
 }
