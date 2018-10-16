@@ -208,7 +208,7 @@ module.exports = ".jumbotron {\r\n  /* background: url(\"\"); */\r\n  background
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"container w-25 p-3\">\n    <h1> Sign In</h1>\n    <form (ngSubmit)=\"onSubmit(login)\" #login=\"ngForm\">\n      <div class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input name=\"username\" ngModel type=\"text\" class=\"form-control\" required>\n      </div>\n  \n      <div class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input name=\"password\" ngModel type=\"password\" class=\"form-control\" required>\n      </div>\n      <button type=\"submit\" class=\"btn btn-primary\">Sign in</button> \n      <p>or <a href=\"#\">Sign up</a></p>\n    </form>\n  </div>\n</div>"
+module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"container w-25 p-3\">\n    <h1> Sign In</h1>\n    <form (ngSubmit)=\"onSubmit(login)\" #login=\"ngForm\" ngNativeValidate>\n      <div class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input name=\"username\" ngModel type=\"text\" class=\"form-control\" required>\n      </div>\n  \n      <div class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input name=\"password\" ngModel type=\"password\" class=\"form-control\" required>\n      </div>\n      <button type=\"submit\" class=\"btn btn-primary\">Sign in</button> \n      <p>or <a href=\"#\">Sign up</a></p>\n    </form>\n  </div>\n</div>"
 
 /***/ }),
 
