@@ -11,6 +11,9 @@
         <label for="password">Password</label>
         <input name="password" ngModel type="password" class="form-control" required>
       </div>
+      <div class="row text-danger container" *ngIf="message">
+        <p>{{message}}</p>
+      </div>
       <button type="submit" class="btn btn-primary">Sign in</button> 
       <p>or <a href="#">Sign up</a></p>
     </form>
