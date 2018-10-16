@@ -41,7 +41,7 @@ module.exports = ".navbar {\r\n  background-color: #CF1E00;\r\n}"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<nav class=\"navbar sticky-top navbar-dark\">\n  <a class=\"navbar-brand\" href=\"#\">Food Recommender System</a>\n</nav>\n<app-login-form></app-login-form>"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<nav class=\"navbar sticky-top navbar-dark\">\n  <a class=\"navbar-brand\" href=\"#\">Food Recommender System</a>\n</nav>\n\n<app-login-form *ngIf=\"!isAuthenticated(); else helloTemplate \"></app-login-form>\n<ng-template #helloTemplate>\n  <div>\n    <h1>Hello User!</h1>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -67,6 +67,13 @@ var AppComponent = /** @class */ (function () {
     function AppComponent() {
         this.title = 'client';
     }
+    AppComponent.prototype.isAuthenticated = function () {
+        if (document.cookie.indexOf("JSESSION") >= 0) {
+            return true;
+        }
+        localStorage.removeItem("user");
+        return false;
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
@@ -94,8 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login-form/login-form.component */ "./src/app/login-form/login-form.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login-form/login-form.component */ "./src/app/login-form/login-form.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -107,24 +115,75 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
-                _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_4__["LoginFormComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
+                _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_5__["LoginFormComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"]
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]
             ],
             providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/authentication.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/authentication.service.ts ***!
+  \*******************************************/
+/*! exports provided: AuthenticationService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticationService", function() { return AuthenticationService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AuthenticationService = /** @class */ (function () {
+    function AuthenticationService(httpClient) {
+        this.httpClient = httpClient;
+        this.loginUrl = '/login';
+        this.httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+            })
+        };
+    }
+    AuthenticationService.prototype.login = function (login) {
+        return this.httpClient.post(this.loginUrl, login, this.httpOptions);
+    };
+    AuthenticationService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], AuthenticationService);
+    return AuthenticationService;
 }());
 
 
@@ -149,7 +208,7 @@ module.exports = ".jumbotron {\r\n  /* background: url(\"\"); */\r\n  background
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"container w-25 p-3\">\n    <h1> Sign In</h1>\n    <form (ngSubmit)=\"onSubmit(login)\" #login=\"ngForm\">\n      <div class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input name=\"username\" ngModel type=\"text\" class=\"form-control\" required>\n      </div>\n  \n      <div class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input name=\"password\" ngModel type=\"password\" class=\"form-control\" required>\n      </div>\n      <div class=\"form-group submit\">\n        <button type=\"submit\" class=\"btn btn-primary\">Sign in</button> \n      </div>\n      <p>or <a href=\"#\">Sign up</a></p>\n    </form>\n  </div>\n</div>"
+module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"container w-25 p-3\">\n    <h1> Sign In</h1>\n    <form (ngSubmit)=\"onSubmit(login)\" #login=\"ngForm\">\n      <div class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input name=\"username\" ngModel type=\"text\" class=\"form-control\" required>\n      </div>\n  \n      <div class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input name=\"password\" ngModel type=\"password\" class=\"form-control\" required>\n      </div>\n      <button type=\"submit\" class=\"btn btn-primary\">Sign in</button> \n      <p>or <a href=\"#\">Sign up</a></p>\n    </form>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -164,6 +223,7 @@ module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"cont
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginFormComponent", function() { return LoginFormComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../authentication.service */ "./src/app/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -174,10 +234,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var LoginFormComponent = /** @class */ (function () {
-    function LoginFormComponent() {
+    function LoginFormComponent(authenticationService) {
+        this.authenticationService = authenticationService;
     }
     LoginFormComponent.prototype.ngOnInit = function () {
+    };
+    LoginFormComponent.prototype.onSubmit = function (ngform) {
+        this.authenticationService.login(ngform.value).subscribe(function (user) {
+            localStorage.setItem("user", JSON.stringify(user));
+        });
     };
     LoginFormComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -185,7 +252,7 @@ var LoginFormComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login-form.component.html */ "./src/app/login-form/login-form.component.html"),
             styles: [__webpack_require__(/*! ./login-form.component.css */ "./src/app/login-form/login-form.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_authentication_service__WEBPACK_IMPORTED_MODULE_1__["AuthenticationService"]])
     ], LoginFormComponent);
     return LoginFormComponent;
 }());
