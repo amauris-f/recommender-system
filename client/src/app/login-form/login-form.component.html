@@ -1,7 +1,7 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container w-25 p-3">
     <h1> Sign In</h1>
-    <form (ngSubmit)="onSubmit(login)" #login="ngForm">
+    <form (ngSubmit)="onSubmit(login)" #login="ngForm" ngNativeValidate>
       <div class="form-group">
         <label for="username">Username</label>
         <input name="username" ngModel type="text" class="form-control" required>
