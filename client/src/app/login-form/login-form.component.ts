@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../authentication.service';
+import { User } from '../user';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -8,9 +10,16 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService) { }
+  private user : User;
 
   ngOnInit() {
+  }
+
+  onSubmit(ngform : NgForm){
+    this.authenticationService.login(ngform.value).subscribe(user =>{
+      localStorage.setItem("user", JSON.stringify(user));
+    });
   }
 
 }

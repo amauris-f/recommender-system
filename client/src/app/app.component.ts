@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'client';
+
+
+  public isAuthenticated() : boolean {
+    if (document.cookie.indexOf("JSESSION") >= 0){
+      return true;
+    }
+    localStorage.removeItem("user");
+    return false;
+  }
 }

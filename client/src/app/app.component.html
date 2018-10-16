@@ -2,4 +2,10 @@
 <nav class="navbar sticky-top navbar-dark">
   <a class="navbar-brand" href="#">Food Recommender System</a>
 </nav>
-<app-login-form></app-login-form>
+
+<app-login-form *ngIf="!isAuthenticated(); else helloTemplate "></app-login-form>
+<ng-template #helloTemplate>
+  <div>
+    <h1>Hello User!</h1>
+  </div>
+</ng-template>
