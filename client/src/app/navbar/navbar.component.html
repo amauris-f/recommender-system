@@ -1,0 +1,6 @@
+<nav class="navbar sticky-top navbar-dark">
+  <a class="navbar-brand" href="#">Food Recommender System</a>
+  <div *ngIf="authService.isAuthenticated()">
+    <p>Hello, {{authService.getUser().username}}</p>
+  </div>
+</nav>
