@@ -22,4 +22,17 @@ export class AuthenticationService {
   login(login : LoginModel) : Observable<User>{
     return this.httpClient.post<User>(this.loginUrl, login, this.httpOptions);
   }
+
+  isAuthenticated() : Boolean {
+    if (document.cookie.indexOf("JSESSION") >= 0){
+      this.user = JSON.parse(localStorage.getItem("user")) as User;
+      return true;
+    }
+    localStorage.removeItem("user");
+    return false;
+  }
+
+  getUser() : User{
+    return this.user;
+  }
 }
