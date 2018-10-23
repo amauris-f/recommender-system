@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AuthenticationController {
+public class AuthenticationController extends com.herokuapp.frs.rest.RestController {
 
   @Autowired
   private UserService userService;
@@ -27,9 +27,12 @@ public class AuthenticationController {
     if(user == null){
       throw new InvalidCredentialsException("Invalid username or password");
     }
-    Cookie cookie = new Cookie("JSESSION", UUID.randomUUID().toString());
-    cookie.setMaxAge(60 * 5);
+    String uuid = UUID.randomUUID().toString();
+    Cookie cookie = new Cookie("JSESSION", uuid);
+    int expiry = 60 * 5;
+    cookie.setMaxAge(expiry);
     response.addCookie(cookie);
+    userSessionService.createUserSession(user, uuid, expiry);
     return user;
   }
 
