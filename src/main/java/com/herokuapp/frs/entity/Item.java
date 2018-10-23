@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="item", schema="recommender_system")
 public class Item {
@@ -29,6 +31,7 @@ public class Item {
   @JoinColumn(name="restaurant_id")
   private Restaurant restaurant;
 
+  @JsonIgnore
   @OneToMany(cascade=CascadeType.ALL, mappedBy="item")
   private List<Review> reviews;
 
