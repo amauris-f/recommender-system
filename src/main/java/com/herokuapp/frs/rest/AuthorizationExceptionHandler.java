@@ -1,8 +1,7 @@
 package com.herokuapp.frs.rest;
 
 
-import com.herokuapp.frs.exception.InvalidCredentialsException;
-import com.herokuapp.frs.exception.InvalidCredentialsResponse;
+
 import com.herokuapp.frs.exception.UnauthorizedException;
 import com.herokuapp.frs.exception.UnauthorizedResponse;
 

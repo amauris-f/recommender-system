@@ -6,7 +6,6 @@ import javax.transaction.Transactional;
 
 import com.herokuapp.frs.dao.ReviewDAO;
 import com.herokuapp.frs.entity.Review;
-import com.herokuapp.frs.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
