@@ -1,9 +1,17 @@
 package com.herokuapp.frs.recommendersystem;
 
+import com.herokuapp.frs.dao.ReviewDAO;
+import com.herokuapp.frs.dao.ReviewDAOImpl;
 import com.herokuapp.frs.dao.UserDAO;
 import com.herokuapp.frs.dao.UserDAOImpl;
+import com.herokuapp.frs.dao.UserSessionDAO;
+import com.herokuapp.frs.dao.UserSessionDAOImpl;
+import com.herokuapp.frs.service.ReviewService;
+import com.herokuapp.frs.service.ReviewServiceImpl;
 import com.herokuapp.frs.service.UserService;
 import com.herokuapp.frs.service.UserServiceImpl;
+import com.herokuapp.frs.service.UserSessionService;
+import com.herokuapp.frs.service.UserSessionServiceImpl;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +27,26 @@ public class BeanConfig{
   @Bean
   public UserService userService(){
     return new UserServiceImpl();
+  }
+
+  @Bean
+  public ReviewService reviewService(){
+    return new ReviewServiceImpl();
+  }
+
+  @Bean
+  public ReviewDAO reviewDAO(){
+    return new ReviewDAOImpl();
+  }
+
+  @Bean
+  public UserSessionService userSessionService(){
+    return new UserSessionServiceImpl();
+  }
+
+  @Bean
+  public UserSessionDAO userSessionDAO(){
+    return new UserSessionDAOImpl();
   }
 
 }
