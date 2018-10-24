@@ -42,6 +42,11 @@ public abstract class RestController {
     return session;
   }
 
+  protected UserSession authorizeRequest(HttpServletRequest request){
+    UserSession session = getCookie(request);
+    return session;
+  }
+
   protected UserSession authorizeRequest(HttpServletRequest request, User user){
     UserSession session = getCookie(request);
     if(session.getUser().getId() != user.getId()){
