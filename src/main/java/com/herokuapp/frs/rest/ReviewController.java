@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.herokuapp.frs.entity.Review;
-import com.herokuapp.frs.entity.UserSession;
 import com.herokuapp.frs.service.ReviewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
