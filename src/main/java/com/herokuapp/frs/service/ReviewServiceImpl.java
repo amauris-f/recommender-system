@@ -31,6 +31,11 @@ public class ReviewServiceImpl implements ReviewService {
   @Transactional
 	public List<Review> getAllReviews(int userId) {
 		return reviewDAO.getReviews(userId);
-	}
+  }
+
+  @Override
+  public void saveReview(Review review) {
+    reviewDAO.saveReview(review);
+  }
 
 }

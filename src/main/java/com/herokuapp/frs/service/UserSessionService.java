@@ -8,4 +8,6 @@ public interface UserSessionService {
   public void updateUserSession(User user, String uuid, int expiry);
   public void deleteUserSession(User user, String uuid);
   public UserSession getUserSessionBySessionId(String uuid);
+  public UserSession getUserSessionByUserId(int userId);
+
 }

@@ -23,5 +23,10 @@ public class ReviewDAOImpl implements ReviewDAO {
     return userReviews;
 	}
 
+  @Override
+  public void saveReview(Review review) {
+    Session session = sessionFactory.getCurrentSession();
+    session.saveOrUpdate(review);
+  }
 
 }

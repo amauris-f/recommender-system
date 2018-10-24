@@ -53,4 +53,9 @@ public class UserSessionServiceImpl implements UserSessionService {
     return userSessionDAO.getSessionBySessionId(uuid);
   }
 
+  @Override
+  public UserSession getUserSessionByUserId(int userId) {
+    return userSessionDAO.getSessionByUserId(userId);
+  }
+
 }
