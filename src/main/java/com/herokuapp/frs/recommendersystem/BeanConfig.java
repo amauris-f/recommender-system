@@ -1,5 +1,7 @@
 package com.herokuapp.frs.recommendersystem;
 
+import com.herokuapp.frs.dao.ItemDAO;
+import com.herokuapp.frs.dao.ItemDAOImpl;
 import com.herokuapp.frs.dao.RestaurantDAO;
 import com.herokuapp.frs.dao.RestaurantDAOImpl;
 import com.herokuapp.frs.dao.ReviewDAO;
@@ -8,6 +10,8 @@ import com.herokuapp.frs.dao.UserDAO;
 import com.herokuapp.frs.dao.UserDAOImpl;
 import com.herokuapp.frs.dao.UserSessionDAO;
 import com.herokuapp.frs.dao.UserSessionDAOImpl;
+import com.herokuapp.frs.service.ItemService;
+import com.herokuapp.frs.service.ItemServiceImpl;
 import com.herokuapp.frs.service.RestaurantService;
 import com.herokuapp.frs.service.RestaurantServiceImpl;
 import com.herokuapp.frs.service.ReviewService;
@@ -61,5 +65,15 @@ public class BeanConfig{
   @Bean
   public RestaurantDAO restaurantDao(){
     return new RestaurantDAOImpl();
+  }
+
+  @Bean
+  public ItemDAO itemDao(){
+    return new ItemDAOImpl();
+  }
+
+  @Bean
+  public ItemService itemService(){
+    return new ItemServiceImpl();
   }
 }
