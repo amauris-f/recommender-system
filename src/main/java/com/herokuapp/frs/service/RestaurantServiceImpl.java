@@ -6,7 +6,9 @@ import com.herokuapp.frs.dao.RestaurantDAO;
 import com.herokuapp.frs.entity.Restaurant;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RestaurantServiceImpl implements RestaurantService {
 
   @Autowired

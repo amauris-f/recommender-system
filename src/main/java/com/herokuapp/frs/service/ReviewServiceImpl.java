@@ -8,7 +8,9 @@ import com.herokuapp.frs.dao.ReviewDAO;
 import com.herokuapp.frs.entity.Review;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReviewServiceImpl implements ReviewService {
   @Autowired
   private ReviewDAO reviewDAO;
@@ -34,6 +36,7 @@ public class ReviewServiceImpl implements ReviewService {
   }
 
   @Override
+  @Transactional
   public void saveReview(Review review) {
     reviewDAO.saveReview(review);
   }
