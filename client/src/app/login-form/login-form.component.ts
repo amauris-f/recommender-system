@@ -13,8 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService, private router : Router) { }
-  private user : User;
+  constructor(private authenticationService: AuthenticationService, private router : Router) {   }
   public message : String;
 
   ngOnInit() {
