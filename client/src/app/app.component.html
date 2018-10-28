@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <app-navbar></app-navbar>
 
-<app-login-form *ngIf="false; else helloTemplate "></app-login-form>
+<app-login-form *ngIf="!isAuthenticated(); else helloTemplate "></app-login-form>
 <ng-template #helloTemplate>
   <div class="row"></div>
   <div class="jumbotron jumbotron-fluid">
