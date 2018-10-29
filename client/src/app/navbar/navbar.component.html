@@ -1,6 +1,11 @@
 <nav class="navbar sticky-top navbar-dark">
   <a class="navbar-brand" href="#">Food Recommender System</a>
-  <div *ngIf="authService.user != null">
-    <p>Hello, {{authService.user.username}}</p>
+  <div *ngIf="authService.user != null" class="dropdown show">
+    <a class="dropdown-toggle" href="#" role="button" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Hello, {{authService.user.username}}
+    </a>
+    <div class="dropdown-menu" aria-labelledby="menu">
+        <a class="dropdown-item" (click)="authService.logout()" href="/">Sign out</a>
+    </div>
   </div>
 </nav>

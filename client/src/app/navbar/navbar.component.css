@@ -2,6 +2,11 @@
   background-color: #CF1E00;
 }
 
+
+a.dropdown-toggle, a:hover.dropdown-toggle, a:visited.dropdown-toggle {
+  color: white;
+}
+
 div {
   color: white;
 }
