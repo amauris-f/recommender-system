@@ -1,3 +1,13 @@
-<p>
-  dashboard works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4 card text-center" *ngFor="let review of reviews">
+      <div class="card-body">
+        <div class="logo">
+          <img src="{{review.item.restaurant.logoPath}}">
+        </div>
+        <h5 class="card-title">{{review.item.name}}</h5>
+        <p class="card-text">{{review.rating}}</p>
+      </div>
+    </div>
+  </div>
+</div>
