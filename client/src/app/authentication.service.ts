@@ -41,4 +41,14 @@ export class AuthenticationService {
   getUser() : User{
     return this.user;
   }
+
+  logout(){
+    localStorage.removeItem("user");
+    this.deleteCookie();
+    this.userSub.next(null);
+  }
+
+  private deleteCookie(){
+    document.cookie = "JSESSION" + '=;Path=/;Expires=Thu, 01 Jan 1970 00:00:01 GMT;'; 
+  }
 }
