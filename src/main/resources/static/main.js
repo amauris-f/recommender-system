@@ -202,12 +202,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _navbar_navbar_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./navbar/navbar.component */ "./src/app/navbar/navbar.component.ts");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! .//app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var angular_star_rating__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! angular-star-rating */ "./node_modules/angular-star-rating/esm5/angular-star-rating.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -232,7 +234,8 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"]
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
+                angular_star_rating__WEBPACK_IMPORTED_MODULE_9__["StarRatingModule"].forRoot()
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
@@ -378,7 +381,7 @@ var AuthenticationService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.logo{\r\n  width: 50%;\r\n  height: 50%;\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}"
+module.exports = "img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.logo{\r\n  width: 50%;\r\n  height: 50%;\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.container-fluid {\r\n  background-color: #CF1E00;\r\n  padding-bottom: 15px;\r\n}\r\n\r\nh1, h3 {\r\n  color: white;\r\n}"
 
 /***/ }),
 
@@ -389,7 +392,7 @@ module.exports = "img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.logo{\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-4 card text-center\" *ngFor=\"let review of reviews\">\n      <div class=\"card-body\">\n        <div class=\"logo\">\n          <img src=\"{{review.item.restaurant.logoPath}}\">\n        </div>\n        <h5 class=\"card-title\">{{review.item.name}}</h5>\n        <p class=\"card-text\">{{review.rating}}</p>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n  <h1 class=\"display-3\">Welcome,</h1>\n  <h3>Your Recent Reviews:</h3>\n  <div class=\"row card-deck\">\n    <div class=\"col-4 card text-center\" *ngFor=\"let review of reviews\">\n      <div class=\"card-body\">\n        <div class=\"logo\">\n          <img src=\"{{review.item.restaurant.logoPath}}\">\n        </div>\n        <h5 class=\"card-title\">{{review.item.name}}</h5>\n        <star-rating [readOnly]=\"true\" [rating]=\"review.rating\"></star-rating>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
