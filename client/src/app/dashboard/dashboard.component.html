@@ -1,12 +1,14 @@
 <div class="container-fluid">
-  <div class="row">
+  <h1 class="display-3">Welcome,</h1>
+  <h3>Your Recent Reviews:</h3>
+  <div class="row card-deck">
     <div class="col-4 card text-center" *ngFor="let review of reviews">
       <div class="card-body">
         <div class="logo">
           <img src="{{review.item.restaurant.logoPath}}">
         </div>
         <h5 class="card-title">{{review.item.name}}</h5>
-        <p class="card-text">{{review.rating}}</p>
+        <star-rating [readOnly]="true" [rating]="review.rating"></star-rating>
       </div>
     </div>
   </div>
