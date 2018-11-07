@@ -23,20 +23,26 @@ public class ReviewController extends com.herokuapp.frs.rest.RestController {
   @Autowired
   private ReviewService reviewService;
 
-  @GetMapping("/review/recent/{id}")
+  @GetMapping("/reviews/recent/{id}")
   public List<Review> getRecentReviews(@PathVariable int id, HttpServletRequest request) {
     authorizeRequest(request, id);
     return reviewService.getRecentReviews(id);
   }
 
-  @PostMapping("/review")
+  @GetMapping("/reviews/users/{userId}/restaurant/{restId}")
+  public List<Review> getUserRestaurantReviews(@PathVariable int userId, @PathVariable int restId, HttpServletRequest request) {
+    authorizeRequest(request, userId);
+    return reviewService.getUserRestaurantReviews(userId, restId);
+  }
+
+  @PostMapping("/reviews")
   public void createReview(@RequestBody Review review, HttpServletRequest request){
     authorizeRequest(request, review.getUser());
     review.setId(0);
     reviewService.saveReview(review);
   }
 
-  @PutMapping("/review")
+  @PutMapping("/reviews")
   public void updateReview(@RequestBody Review review, HttpServletRequest request){
     authorizeRequest(request, review.getUser());
     reviewService.saveReview(review);
