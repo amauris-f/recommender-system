@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.herokuapp.frs.entity.Item;
 import com.herokuapp.frs.entity.Restaurant;
-import com.herokuapp.frs.service.ItemService;
 import com.herokuapp.frs.service.RestaurantService;
 
 import org.springframework.beans.factory.annotation.Autowired;
