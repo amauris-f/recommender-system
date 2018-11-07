@@ -1,8 +1,12 @@
 package com.herokuapp.frs.rest;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import com.herokuapp.frs.entity.Item;
 import com.herokuapp.frs.entity.Restaurant;
+import com.herokuapp.frs.service.ItemService;
 import com.herokuapp.frs.service.RestaurantService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +23,21 @@ public class RestaurantController extends com.herokuapp.frs.rest.RestController{
   private RestaurantService restaurantService;
 
 
-  @GetMapping("/restaurant/{id}")
+  @GetMapping("/restaurants/{id}")
   public Restaurant getRestaurant(@PathVariable int id, HttpServletRequest request){
     authorizeRequest(request);
     return restaurantService.getRestaurant(id);
   }
 
+  @GetMapping("/restaurants/{id}/menu")
+  public List<Item> getMenu(@PathVariable int id, HttpServletRequest request){
+    authorizeRequest(request);
+    return restaurantService.getMenu(id);
+  }
+
+  @GetMapping("/restaurants")
+  public List<Restaurant> getAllRestaurants(HttpServletRequest request){
+    authorizeRequest(request);
+    return restaurantService.getAll();
+  }
 }
