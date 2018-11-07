@@ -12,10 +12,54 @@ img {
 }
 
 .container-fluid {
-  background-color: #CF1E00;
   padding-bottom: 15px;
 }
 
-h1, h3 {
+#recent{
+  background-color: #CF1E00;
+}
+
+#recent h1, #recent h3 {
   color: white;
+}
+
+.main{
+  background-color: white;
+} 
+
+.main > h1, .main > p {
+  color: #CF1E00;
+}
+
+.main > button, .main > button:active {
+  background-color: #CF1E00;
+  border-color: #CF1E00;
+  color: #fff;
+}
+
+.main > button:hover {
+  background-color: #fff;
+  border-color: #CF1E00;
+  color: #CF1E00;
+}
+
+.comp{
+  background-color: #b63a24;
+  padding-bottom: 15px;
+}
+
+.comp > h1, .comp > p {
+  color: white;
+}
+
+.comp > button:hover {
+  background-color: #b63a24;
+  border-color: #fff;
+  color: #fff;
+}
+
+.comp > button, .comp > button:active {
+  background-color: #fff;
+  border-color: #fff;
+  color: #b63a24;
 }
