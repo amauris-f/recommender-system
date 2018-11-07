@@ -11,5 +11,4 @@ public interface ReviewService {
   public List<Review> getAllReviews(int userId);
 
   public void saveReview(Review review);
-  public List<Review> getUserRestaurantReviews(int userId, int restaurantId);
 }

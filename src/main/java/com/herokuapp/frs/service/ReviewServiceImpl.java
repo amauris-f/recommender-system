@@ -41,10 +41,4 @@ public class ReviewServiceImpl implements ReviewService {
     reviewDAO.saveReview(review);
   }
 
-  @Override
-  @Transactional
-  public List<Review> getUserRestaurantReviews(int userId, int restaurantId) {
-    return reviewDAO.getUserRestaurantReviews(userId, restaurantId);
-  }
-
 }
