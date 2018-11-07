@@ -10,13 +10,17 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StarRatingModule } from 'angular-star-rating';
+import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
+import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
     NavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    RestaurantListComponent,
+    RestaurantDetailComponent
   ],
   imports: [
     BrowserModule,
