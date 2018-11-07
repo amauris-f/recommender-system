@@ -1,0 +1,11 @@
+<div *ngIf="restaurant">
+  <h1>
+    {{restaurant.name}}
+  </h1>
+  <ul class="list-group">
+    <li *ngFor="let review of reviews" class="list-group-item">
+      <p>{{review.item.name}}</p>
+      <star-rating [rating]="review.rating"></star-rating>
+    </li>
+  </ul>
+</div>

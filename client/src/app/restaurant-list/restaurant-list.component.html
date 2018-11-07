@@ -1,0 +1,22 @@
+<!-- <div class="container-fluid">
+  <ul>
+    <li *ngFor="let restaurant of restaurants">
+      <div class="logo">
+        <img src="{{restaurant.logoPath}}">
+      </div>
+      <p>{{restaurant.name}}</p>
+    </li> 
+  </ul>
+</div> -->
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-4 card text-center" *ngFor="let restaurant of restaurants" routerLink="/restaurant/{{restaurant.id}}">
+        <div class="card-body">
+          <div class="logo">
+            <img src="{{restaurant.logoPath}}">
+          </div>
+          <p>{{restaurant.name}}</p>
+      </div>
+    </div>
+  </div>
+</div>
