@@ -6,6 +6,7 @@ import java.util.Base64;
 import java.util.List;
 
 import com.herokuapp.frs.dao.UserDAO;
+import com.herokuapp.frs.entity.Review;
 import com.herokuapp.frs.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,26 @@ public class UserServiceImpl implements UserService {
       return null;
     }
     return user;
+  }
+
+  
+  @Transactional
+  @Override
+  public List<Review> getRestaurantReviews(int userId, int restId) {
+    return userDao.getRestaurantReviews(userId, restId);
+  }
+
+  @Transactional
+  @Override
+  public List<Review> getRecentReviews(int userId) {
+    List<Review> reviews = userDao.getReviews(userId);
+    int numReviews = reviews.size();
+    if(numReviews >=5){
+      return reviews.subList(0, 5);
+    } else if(numReviews > 0){
+      return reviews.subList(0, numReviews);
+    }
+    return reviews;
   }
 
   private static String hashPassword(String pass, String salt){

@@ -2,6 +2,7 @@ package com.herokuapp.frs.dao;
 
 import java.util.List;
 
+import com.herokuapp.frs.entity.Review;
 import com.herokuapp.frs.entity.User;
 
 import org.hibernate.Session;
@@ -39,7 +40,22 @@ public class UserDAOImpl implements UserDAO {
   public User getUserByUsername(String username) {
     Session session = sessionFactory.getCurrentSession();
     String hql = String.format("FROM User WHERE username=\'%s\'",username);
-    return (User)session.createQuery(hql).uniqueResult();
+    return (User) session.createQuery(hql).uniqueResult();
+  }
+
+  @Override
+  public List<Review> getRestaurantReviews(int userId, int restId) {
+    Session session = sessionFactory.getCurrentSession();
+    String hql = String.format("FROM Review WHERE user_id=\'%s\' AND item.restaurant.id=\'%s\'", userId, restId);
+    return session.createQuery(hql, Review.class).getResultList();
+  }
+
+  @Override
+  public List<Review> getReviews(int userId) {
+    Session session = sessionFactory.getCurrentSession();
+    String hql = String.format("FROM Review WHERE user_id=\'%s\' ORDER BY id DESC", userId);
+    List<Review> userReviews = session.createQuery(hql, Review.class).getResultList(); 
+    return userReviews;  
   }
 
 }
