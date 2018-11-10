@@ -28,7 +28,7 @@ public class ReviewController extends com.herokuapp.frs.rest.RestController {
   public ResponseEntity<OKResponse> createReview(@RequestBody Review review, HttpServletRequest request){
     authorizeRequest(request, review.getUser());
     reviewService.saveReview(review);
-    OKResponse response = new OKResponse(HttpStatus.OK.value(),"Response was saved!");
+    OKResponse response = new OKResponse(HttpStatus.OK.value(),"Review was saved!");
     return new ResponseEntity<OKResponse>(response, HttpStatus.OK);    
   }
 
@@ -36,7 +36,7 @@ public class ReviewController extends com.herokuapp.frs.rest.RestController {
   public ResponseEntity<OKResponse> updateReview(@RequestBody Review review, @PathVariable int userId, HttpServletRequest request){
     authorizeRequest(request, userId);
     reviewService.saveReview(review);
-    OKResponse response = new OKResponse(HttpStatus.OK.value(),"Response was saved!");
+    OKResponse response = new OKResponse(HttpStatus.OK.value(),"Review was saved!");
     return new ResponseEntity<OKResponse>(response, HttpStatus.OK);
   }
 
