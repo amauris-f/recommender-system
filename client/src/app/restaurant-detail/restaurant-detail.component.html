@@ -1,11 +1,24 @@
-<div *ngIf="restaurant">
-  <h1>
-    {{restaurant.name}}
-  </h1>
+<div *ngIf="reviews && reviews.length === menu.length">
+  <div class="container">
+  <div class="row">
+    <div class="logo" [style.border-color]="restaurant.primaryColor">
+      <img src="{{restaurant.logoPath}}"> 
+    </div>
+    <div class="title">
+        <h2 class="display-2">
+            {{restaurant.name}}
+        </h2>
+    </div>      
+  </div>
+  </div>
   <ul class="list-group">
     <li *ngFor="let review of reviews" class="list-group-item">
-      <p>{{review.item.name}}</p>
-      <star-rating [rating]="review.rating"></star-rating>
+      <div class="row align-items-center">
+          <p class="col-4">{{review.item.name}}</p>
+          <star-rating [rating]="review.rating" (ratingChange)="onRatingChange($event,review)" class="col-4"></star-rating>
+          <button class="btn btn-primary" [hidden]="selectedReview!==review" (click)="saveReview()">Submit</button>
+          <p class="text-success" id="{{review.item.name}}"></p>
+      </div>
     </li>
   </ul>
 </div>

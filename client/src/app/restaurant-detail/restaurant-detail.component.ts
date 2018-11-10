@@ -6,6 +6,7 @@ import { ReviewService } from '../api-services/review.service';
 import { RestaurantService } from '../api-services/restaurant.service';
 import { ActivatedRoute } from '@angular/router';
 import { Review } from '../review';
+import { RatingChangeEvent } from 'angular-star-rating';
 
 @Component({
   selector: 'app-restaurant-detail',
@@ -15,12 +16,17 @@ import { Review } from '../review';
 export class RestaurantDetailComponent implements OnInit {
   private reviews: Review[];
   private menu: Item[];
+  private selectedReview: Review;
+  private selectedOrigRating: Number;
   private restaurant: Restaurant;
-  constructor(private revService: ReviewService, private restService: RestaurantService, private route: ActivatedRoute) { }
+  constructor(private revService: ReviewService, private restService: RestaurantService, private route: ActivatedRoute) {
+    this.selectedReview = new Review();
+   }
 
   ngOnInit() {
     this.getMenu();
   }
+
 
   private addNotReviewed(): any {
     this.menu.forEach(item => {
@@ -48,6 +54,29 @@ export class RestaurantDetailComponent implements OnInit {
         this.getMenuReviews();
       }   
     );
+  }
+
+  private onRatingChange($event : RatingChangeEvent, review: Review){
+    if($event.rating == review.rating) {return;}
+    if(review.item != this.selectedReview.item){
+      var deselected = this.selectedReview;
+      deselected.rating = this.selectedOrigRating;
+      this.selectedReview = review;
+      this.selectedOrigRating = review.rating;
+    }
+    this.selectedReview.rating = $event.rating;
+  }
+
+  private saveReview(){
+    this.revService.saveReview(this.selectedReview).subscribe(res=>{
+      var reviewCssId = this.selectedReview.item.name as string; 
+      this.selectedReview = new Review();
+      this.selectedOrigRating = 0;
+      document.getElementById(reviewCssId).innerHTML=res.message;
+      setTimeout(function(){
+        document.getElementById(reviewCssId).innerHTML=null;
+      }, 5000);
+    });
   }
 
 }
