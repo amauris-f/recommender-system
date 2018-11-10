@@ -23,6 +23,54 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
+/***/ "./src/app/api-services/restaurant.service.ts":
+/*!****************************************************!*\
+  !*** ./src/app/api-services/restaurant.service.ts ***!
+  \****************************************************/
+/*! exports provided: RestaurantService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestaurantService", function() { return RestaurantService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var RestaurantService = /** @class */ (function () {
+    function RestaurantService(http) {
+        this.http = http;
+        this.url = "/api/restaurants";
+    }
+    RestaurantService.prototype.getAll = function () {
+        return this.http.get(this.url);
+    };
+    RestaurantService.prototype.getMenu = function (restId) {
+        var path = this.url + "/" + restId + "/menu";
+        return this.http.get(path);
+    };
+    RestaurantService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], RestaurantService);
+    return RestaurantService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/api-services/review.service.ts":
 /*!************************************************!*\
   !*** ./src/app/api-services/review.service.ts ***!
@@ -52,12 +100,29 @@ var ReviewService = /** @class */ (function () {
     function ReviewService(http, authService) {
         this.http = http;
         this.authService = authService;
-        this.urlPath = '/api/review/';
+        this.userUrl = '/api/users';
+        this.reviewUrl = '/api/reviews';
     }
     ReviewService.prototype.getRecentReviews = function () {
         var userId = this.authService.getUser().id;
-        var url = this.urlPath + ("recent/" + userId);
+        var url = this.userUrl + "/" + userId + "/reviews/recent";
         return this.http.get(url);
+    };
+    ReviewService.prototype.getReviews = function (restId) {
+        var userId = this.authService.getUser().id;
+        var url = this.userUrl + "/" + userId + "/reviews/restaurants/" + restId;
+        return this.http.get(url);
+    };
+    ReviewService.prototype.saveReview = function (review) {
+        var authUser = this.authService.getUser();
+        review.user = authUser;
+        if (review.id) {
+            var url = this.reviewUrl + "/" + authUser.id;
+            return this.http.put(url, review);
+        }
+        else {
+            return this.http.post(this.reviewUrl, review);
+        }
     };
     ReviewService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -87,6 +152,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./login-form/login-form.component */ "./src/app/login-form/login-form.component.ts");
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var _auth_guard_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth-guard.service */ "./src/app/auth-guard.service.ts");
+/* harmony import */ var _restaurant_list_restaurant_list_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./restaurant-list/restaurant-list.component */ "./src/app/restaurant-list/restaurant-list.component.ts");
+/* harmony import */ var _restaurant_detail_restaurant_detail_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./restaurant-detail/restaurant-detail.component */ "./src/app/restaurant-detail/restaurant-detail.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98,9 +165,13 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [
     { path: 'login', component: _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_2__["LoginFormComponent"] },
-    { path: '', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_3__["DashboardComponent"], canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardService"]] }
+    { path: '', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_3__["DashboardComponent"], canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardService"]] },
+    { path: 'restaurant', component: _restaurant_list_restaurant_list_component__WEBPACK_IMPORTED_MODULE_5__["RestaurantListComponent"], canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardService"]] },
+    { path: 'restaurant/:id', component: _restaurant_detail_restaurant_detail_component__WEBPACK_IMPORTED_MODULE_6__["RestaurantDetailComponent"], canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardService"]] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -203,12 +274,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! .//app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var angular_star_rating__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! angular-star-rating */ "./node_modules/angular-star-rating/esm5/angular-star-rating.js");
+/* harmony import */ var _restaurant_list_restaurant_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./restaurant-list/restaurant-list.component */ "./src/app/restaurant-list/restaurant-list.component.ts");
+/* harmony import */ var _restaurant_detail_restaurant_detail_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./restaurant-detail/restaurant-detail.component */ "./src/app/restaurant-detail/restaurant-detail.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -228,7 +303,9 @@ var AppModule = /** @class */ (function () {
                 _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
                 _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_5__["LoginFormComponent"],
                 _navbar_navbar_component__WEBPACK_IMPORTED_MODULE_6__["NavbarComponent"],
-                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_8__["DashboardComponent"]
+                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_8__["DashboardComponent"],
+                _restaurant_list_restaurant_list_component__WEBPACK_IMPORTED_MODULE_10__["RestaurantListComponent"],
+                _restaurant_detail_restaurant_detail_component__WEBPACK_IMPORTED_MODULE_11__["RestaurantDetailComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -381,7 +458,7 @@ var AuthenticationService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.logo{\r\n  width: 50%;\r\n  height: 50%;\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.container-fluid {\r\n  background-color: #CF1E00;\r\n  padding-bottom: 15px;\r\n}\r\n\r\nh1, h3 {\r\n  color: white;\r\n}"
+module.exports = "img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.logo{\r\n  width: 50%;\r\n  height: 50%;\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.container-fluid {\r\n  padding-bottom: 15px;\r\n}\r\n\r\n#recent{\r\n  background-color: #CF1E00;\r\n}\r\n\r\n#recent h1, #recent h3 {\r\n  color: white;\r\n}\r\n\r\n.main{\r\n  background-color: white;\r\n}\r\n\r\n.main > h1, .main > p {\r\n  color: #CF1E00;\r\n}\r\n\r\n.main > button, .main > button:active {\r\n  background-color: #CF1E00;\r\n  border-color: #CF1E00;\r\n  color: #fff;\r\n}\r\n\r\n.main > button:hover {\r\n  background-color: #fff;\r\n  border-color: #CF1E00;\r\n  color: #CF1E00;\r\n}\r\n\r\n.comp{\r\n  background-color: #b63a24;\r\n  padding-bottom: 15px;\r\n}\r\n\r\n.comp > h1, .comp > p {\r\n  color: white;\r\n}\r\n\r\n.comp > button:hover {\r\n  background-color: #b63a24;\r\n  border-color: #fff;\r\n  color: #fff;\r\n}\r\n\r\n.comp > button, .comp > button:active {\r\n  background-color: #fff;\r\n  border-color: #fff;\r\n  color: #b63a24;\r\n}"
 
 /***/ }),
 
@@ -392,7 +469,7 @@ module.exports = "img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.logo{\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <h1 class=\"display-3\">Welcome,</h1>\n  <h3>Your Recent Reviews:</h3>\n  <div class=\"row card-deck\">\n    <div class=\"col-4 card text-center\" *ngFor=\"let review of reviews\">\n      <div class=\"card-body\">\n        <div class=\"logo\">\n          <img src=\"{{review.item.restaurant.logoPath}}\">\n        </div>\n        <h5 class=\"card-title\">{{review.item.name}}</h5>\n        <star-rating [readOnly]=\"true\" [rating]=\"review.rating\"></star-rating>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid\" id=\"recent\">\n  <h1 class=\"display-3\">Welcome,</h1>\n  <h3>Your Recent Reviews:</h3>\n  <div class=\"row card-deck\">\n    <div class=\"col-4 card text-center\" *ngFor=\"let review of reviews\">\n      <div class=\"card-body\">\n        <div class=\"logo\">\n          <img src=\"{{review.item.restaurant.logoPath}}\">\n        </div>\n        <h5 class=\"card-title\">{{review.item.name}}</h5>\n        <star-rating [readOnly]=\"true\" [rating]=\"review.rating\"></star-rating>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"container-fluid main text-center\">\n  <h1 class=\"display-3\">Start Your Search</h1>\n  <p class=\"lead\">Review food you've already had from our list of restaurants. Doing so will help us find out what you like.</p>  \n  <button [routerLink]=\"['/restaurant']\" class=\"btn btn-primary main\">Find Restaurants</button>\n</div>\n<div class=\"container-fluid comp text-center\">\n    <h1 class=\"display-3\">Try Something New</h1>\n    <p class=\"lead\">We use the reviews that you give us to find users that have similar tastes. This allows us to predict and recommend foods that you may like, but haven't tried yet\n      Click below to find out. (Coming soon)\n    </p>  \n    <button class=\"btn btn-primary main disabled\">Give me some food!</button>\n</div>"
 
 /***/ }),
 
@@ -589,6 +666,226 @@ var NavbarComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_authentication_service__WEBPACK_IMPORTED_MODULE_1__["AuthenticationService"]])
     ], NavbarComponent);
     return NavbarComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/restaurant-detail/restaurant-detail.component.css":
+/*!*******************************************************************!*\
+  !*** ./src/app/restaurant-detail/restaurant-detail.component.css ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "button, button:active {\r\n  background-color: #CF1E00;\r\n  border-color: #CF1E00;\r\n  color: #fff;\r\n}\r\n\r\nbutton:hover {\r\n  background-color: #fff;\r\n  border-color: #CF1E00;\r\n  color: #CF1E00;\r\n}\r\n\r\np {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.logo {\r\n  width: 250px;\r\n  height: 250px;\r\n  border-radius: 10px;\r\n  border-style: solid;\r\n  display: flex;\r\n}\r\n\r\nimg {\r\n  width: 200px;\r\n  height: auto;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.title {\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.container {\r\n  margin-left: 0px;\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/restaurant-detail/restaurant-detail.component.html":
+/*!********************************************************************!*\
+  !*** ./src/app/restaurant-detail/restaurant-detail.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"reviews && reviews.length === menu.length\">\n  <div class=\"container\">\n  <div class=\"row\">\n    <div class=\"logo\" [style.border-color]=\"restaurant.primaryColor\">\n      <img src=\"{{restaurant.logoPath}}\"> \n    </div>\n    <div class=\"title\">\n        <h2 class=\"display-2\">\n            {{restaurant.name}}\n        </h2>\n    </div>      \n  </div>\n  </div>\n  <ul class=\"list-group\">\n    <li *ngFor=\"let review of reviews\" class=\"list-group-item\">\n      <div class=\"row align-items-center\">\n          <p class=\"col-4\">{{review.item.name}}</p>\n          <star-rating [rating]=\"review.rating\" (ratingChange)=\"onRatingChange($event,review)\" class=\"col-4\"></star-rating>\n          <button class=\"btn btn-primary\" [hidden]=\"selectedReview!==review\" (click)=\"saveReview()\">Submit</button>\n          <p class=\"text-success\" id=\"{{review.item.name}}\"></p>\n      </div>\n    </li>\n  </ul>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/restaurant-detail/restaurant-detail.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/restaurant-detail/restaurant-detail.component.ts ***!
+  \******************************************************************/
+/*! exports provided: RestaurantDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestaurantDetailComponent", function() { return RestaurantDetailComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api_services_review_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api-services/review.service */ "./src/app/api-services/review.service.ts");
+/* harmony import */ var _api_services_restaurant_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api-services/restaurant.service */ "./src/app/api-services/restaurant.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _review__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../review */ "./src/app/review.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var RestaurantDetailComponent = /** @class */ (function () {
+    function RestaurantDetailComponent(revService, restService, route) {
+        this.revService = revService;
+        this.restService = restService;
+        this.route = route;
+        this.selectedReview = new _review__WEBPACK_IMPORTED_MODULE_4__["Review"]();
+    }
+    RestaurantDetailComponent.prototype.ngOnInit = function () {
+        this.getMenu();
+    };
+    RestaurantDetailComponent.prototype.addNotReviewed = function () {
+        var _this = this;
+        this.menu.forEach(function (item) {
+            if (_this.reviews.filter(function (review) {
+                return review.item.id === item.id;
+            }).length == 0) {
+                _this.reviews.push(new _review__WEBPACK_IMPORTED_MODULE_4__["Review"](null, item, 0));
+            }
+        });
+    };
+    RestaurantDetailComponent.prototype.getMenuReviews = function () {
+        var _this = this;
+        var id = +this.route.snapshot.paramMap.get('id');
+        this.revService.getReviews(id).subscribe(function (reviews) {
+            _this.reviews = reviews;
+            _this.addNotReviewed();
+        });
+    };
+    RestaurantDetailComponent.prototype.getMenu = function () {
+        var _this = this;
+        var id = +this.route.snapshot.paramMap.get('id');
+        this.restService.getMenu(id).subscribe(function (menu) {
+            _this.menu = menu;
+            _this.restaurant = _this.menu[0].restaurant;
+            _this.getMenuReviews();
+        });
+    };
+    RestaurantDetailComponent.prototype.onRatingChange = function ($event, review) {
+        if ($event.rating == review.rating) {
+            return;
+        }
+        if (review.item != this.selectedReview.item) {
+            var deselected = this.selectedReview;
+            deselected.rating = this.selectedOrigRating;
+            this.selectedReview = review;
+            this.selectedOrigRating = review.rating;
+        }
+        this.selectedReview.rating = $event.rating;
+    };
+    RestaurantDetailComponent.prototype.saveReview = function () {
+        var _this = this;
+        this.revService.saveReview(this.selectedReview).subscribe(function (res) {
+            var reviewCssId = _this.selectedReview.item.name;
+            _this.selectedReview = new _review__WEBPACK_IMPORTED_MODULE_4__["Review"]();
+            _this.selectedOrigRating = 0;
+            document.getElementById(reviewCssId).innerHTML = res.message;
+            setTimeout(function () {
+                document.getElementById(reviewCssId).innerHTML = null;
+            }, 5000);
+        });
+    };
+    RestaurantDetailComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-restaurant-detail',
+            template: __webpack_require__(/*! ./restaurant-detail.component.html */ "./src/app/restaurant-detail/restaurant-detail.component.html"),
+            styles: [__webpack_require__(/*! ./restaurant-detail.component.css */ "./src/app/restaurant-detail/restaurant-detail.component.css")]
+        }),
+        __metadata("design:paramtypes", [_api_services_review_service__WEBPACK_IMPORTED_MODULE_1__["ReviewService"], _api_services_restaurant_service__WEBPACK_IMPORTED_MODULE_2__["RestaurantService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+    ], RestaurantDetailComponent);
+    return RestaurantDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/restaurant-list/restaurant-list.component.css":
+/*!***************************************************************!*\
+  !*** ./src/app/restaurant-list/restaurant-list.component.css ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".logo {\r\n  height: 50px;\r\n  display: block;\r\n}\r\n\r\nimg {\r\n  height: 100%;\r\n  width: auto;\r\n}\r\n\r\n.card {\r\n  cursor: pointer;\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/restaurant-list/restaurant-list.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/restaurant-list/restaurant-list.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- <div class=\"container-fluid\">\n  <ul>\n    <li *ngFor=\"let restaurant of restaurants\">\n      <div class=\"logo\">\n        <img src=\"{{restaurant.logoPath}}\">\n      </div>\n      <p>{{restaurant.name}}</p>\n    </li> \n  </ul>\n</div> -->\n<div class=\"container-fluid\">\n    <div class=\"row\">\n      <div class=\"col-4 card text-center\" *ngFor=\"let restaurant of restaurants\" routerLink=\"/restaurant/{{restaurant.id}}\">\n        <div class=\"card-body\">\n          <div class=\"logo\">\n            <img src=\"{{restaurant.logoPath}}\">\n          </div>\n          <p>{{restaurant.name}}</p>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/restaurant-list/restaurant-list.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/restaurant-list/restaurant-list.component.ts ***!
+  \**************************************************************/
+/*! exports provided: RestaurantListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestaurantListComponent", function() { return RestaurantListComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api_services_restaurant_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api-services/restaurant.service */ "./src/app/api-services/restaurant.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var RestaurantListComponent = /** @class */ (function () {
+    function RestaurantListComponent(restaurantServ) {
+        this.restaurantServ = restaurantServ;
+    }
+    RestaurantListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.restaurantServ.getAll().subscribe(function (res) {
+            _this.restaurants = res;
+        });
+    };
+    RestaurantListComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-restaurant-list',
+            template: __webpack_require__(/*! ./restaurant-list.component.html */ "./src/app/restaurant-list/restaurant-list.component.html"),
+            styles: [__webpack_require__(/*! ./restaurant-list.component.css */ "./src/app/restaurant-list/restaurant-list.component.css")]
+        }),
+        __metadata("design:paramtypes", [_api_services_restaurant_service__WEBPACK_IMPORTED_MODULE_1__["RestaurantService"]])
+    ], RestaurantListComponent);
+    return RestaurantListComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/review.ts":
+/*!***************************!*\
+  !*** ./src/app/review.ts ***!
+  \***************************/
+/*! exports provided: Review */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Review", function() { return Review; });
+var Review = /** @class */ (function () {
+    function Review(user, item, rating) {
+        this.user = user;
+        this.item = item;
+        this.rating = rating;
+    }
+    return Review;
 }());
 
 
