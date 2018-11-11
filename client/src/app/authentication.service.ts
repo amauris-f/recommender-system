@@ -8,6 +8,9 @@ import { Observable, of, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  signup(value: any): any {
+    throw new Error("Method not implemented.");
+  }
 
   private loginUrl = '/login'
   public user : User;
