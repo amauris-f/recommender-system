@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail
     NavbarComponent,
     DashboardComponent,
     RestaurantListComponent,
-    RestaurantDetailComponent
+    RestaurantDetailComponent,
+    SignupFormComponent
   ],
   imports: [
     BrowserModule,
