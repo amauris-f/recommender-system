@@ -5,9 +5,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardService } from './auth-guard.service';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
 
 const routes:  Routes = [
   { path: 'login', component: LoginFormComponent },
+  { path: 'signup', component: SignupFormComponent },
   { path: '', component: DashboardComponent,  canActivate: [AuthGuardService] },
   { path: 'restaurant', component: RestaurantListComponent,  canActivate: [AuthGuardService] },
   { path: 'restaurant/:id', component: RestaurantDetailComponent, canActivate: [AuthGuardService]}
