@@ -1,0 +1,32 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container w-25 p-3">
+      <h1> Sign Up</h1>
+      <form (ngSubmit)="onSubmit(signup)" #signup="ngForm" ngNativeValidate>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input name="username" ngModel type="text" class="form-control" pattern="[a-zA-Z0-9_]+" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email (optional)</label>
+            <input name="email" ngModel type="email" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input name="password" ngModel type="password" class="form-control" minlength="8" maxlength="16" pattern="[a-zA-Z0-9_!@#$%^&*-]+"required>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input name="confirmPassword" ngModel type="password" class="form-control" minlength="8" maxlength="16" pattern="[a-zA-Z0-9_!@#$%^&*-]+"required>
+        </div>
+
+        <div class="row text-danger container" *ngIf="message">
+          <p>{{message}}</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign up!</button> 
+      </form>
+    </div>
+  </div>
