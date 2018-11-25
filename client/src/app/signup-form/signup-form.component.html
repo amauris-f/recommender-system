@@ -1,32 +1,79 @@
 <div class="jumbotron jumbotron-fluid">
-    <div class="container w-25 p-3">
+    <div class="container w-50 p-3">
       <h1> Sign Up</h1>
-      <form (ngSubmit)="onSubmit(signup)" #signup="ngForm" ngNativeValidate>
+      <form (ngSubmit)="onSubmit(signup)" #signup="ngForm">
         <div class="form-group">
           <label for="username">Username</label>
-          <input name="username" ngModel type="text" class="form-control" pattern="[a-zA-Z0-9_]+" required>
+          <input name="username" ngModel #name="ngModel" type="text" class="form-control" pattern="[a-zA-Z0-9_]+" required>
+          <div *ngIf="name.invalid " class="text-danger">
+            <div *ngIf="name.errors.required">
+              *This field is required
+            </div>
+            <div *ngIf="name.errors.pattern">
+              *Must contain only alphnumeric characters and underscores(_)
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
             <label for="email">Email (optional)</label>
-            <input name="email" ngModel type="email" class="form-control">
+            <input name="email" #email="ngModel" ngModel type="email" class="form-control" email required>
+            <div *ngIf="email.errors.required" class="textg-danger">
+                *This field is required
+            </div>
+            <div *ngIf="email.invalid" class="text-danger">
+                *Incorrect email format
+            </div>
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input name="password" ngModel type="password" class="form-control" minlength="8" maxlength="16" pattern="[a-zA-Z0-9_!@#$%^&*-]+"required>
+          <input name="password" ngModel #password="ngModel" type="password" class="form-control" minlength="8" maxlength="16" pattern="[a-zA-Z0-9_!@#$%^&*-]+" required>
+          <div *ngIf="password.invalid " class="text-danger">
+            <div *ngIf="password.errors.required">
+              *This field is required
+            </div>
+            <div *ngIf="password.errors.pattern">
+                *Must contain only alphnumeric characters and the following:_!@#$%^&*-
+            </div>
+            <div *ngIf="password.errors.minlength">
+                *Minimum length of 8 required
+            </div>
+            <div *ngIf="password.errors.maxlength">
+                *Maximum length of 16 required
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
           <label for="confirmPassword">Confirm Password</label>
-          <input name="confirmPassword" ngModel type="password" class="form-control" minlength="8" maxlength="16" pattern="[a-zA-Z0-9_!@#$%^&*-]+"required>
+          <input name="confirmPassword" #confirmPassword="ngModel" ngModel type="password" class="form-control" minlength="8" maxlength="16" pattern="[a-zA-Z0-9_!@#$%^&*-]+" required>
+          <div *ngIf="confirmPassword.invalid; else comparePass" class="text-danger">
+              <div *ngIf="confirmPassword.errors.required">
+                  *This field is required
+              </div>
+              <div *ngIf="confirmPassword.errors.pattern">
+                  *Must contain only alphnumeric characters and the following:_!@#$%^&*-
+              </div>
+              <div *ngIf="confirmPassword.errors.minlength">
+                  *Minimum length of 8 required
+              </div>
+              <div *ngIf="confirmPassword.errors.maxlength">
+                  *Maximum length of 16 required
+              </div>
+          </div>
+          <ng-template #comparePass>
+              <div *ngIf="confirmPassword.value !== password.value" class="text-danger">
+                *Passwords do not match
+              </div>
+          </ng-template>
         </div>
 
         <div class="row text-danger container" *ngIf="message">
           <p>{{message}}</p>
         </div>
 
-        <button type="submit" class="btn btn-primary">Sign up!</button> 
+        <button type="submit" class="btn btn-primary" [disabled]="!signup.valid || confirmPassword.value !== password.value">Sign up!</button> 
       </form>
     </div>
   </div>
