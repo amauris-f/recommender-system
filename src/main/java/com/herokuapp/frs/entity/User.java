@@ -12,11 +12,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name="user", schema="recommender_system")
 public class User {
   
+  public User(){
+
+  }
+
+  public User(String username, String email, String password){
+    this.username=username;
+    this.email=email;
+    this.password=password;
+  }
+
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   @Column(name="id")
@@ -28,7 +40,7 @@ public class User {
   @Column(name="email")
   private String email;
 
-  @JsonIgnore
+  @JsonProperty(access=Access.WRITE_ONLY)
   @Column(name="password")
   private String password;
 
