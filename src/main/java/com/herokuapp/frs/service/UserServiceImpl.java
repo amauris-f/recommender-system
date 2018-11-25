@@ -2,6 +2,7 @@ package com.herokuapp.frs.service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
+  private static SecureRandom rand = new SecureRandom();
 
   @Autowired
   private UserDAO userDao;
@@ -34,8 +36,18 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
 	public void saveUser(User user) {
+    String salt = createSalt();
+    user.setSalt(salt);
+    String hashPass = hashPassword(user.getPassword(), salt);
+    user.setPassword(hashPass);
 		userDao.saveUser(user);
 	}
+
+  private String createSalt() {
+    byte[] salt = new byte[32];
+    rand.nextBytes(salt);
+    return Base64.getEncoder().encodeToString(salt);
+  }
 
   @Override
   @Transactional
@@ -81,6 +93,12 @@ public class UserServiceImpl implements UserService {
       System.out.print(e.getMessage());
     }
     return pass;
+  }
+
+  @Override
+  @Transactional
+  public User getUserByUsername(String username) {
+    return userDao.getUserByUsername(username);
   }
 
 }
