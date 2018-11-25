@@ -37,6 +37,8 @@ public class UserServiceImpl implements UserService {
   @Transactional
 	public void saveUser(User user) {
     String salt = createSalt();
+    user.setUsername(user.getUsername().toLowerCase());
+    user.setEmail(user.getEmail().toLowerCase());
     user.setSalt(salt);
     String hashPass = hashPassword(user.getPassword(), salt);
     user.setPassword(hashPass);
