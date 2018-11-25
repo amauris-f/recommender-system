@@ -154,6 +154,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_guard_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth-guard.service */ "./src/app/auth-guard.service.ts");
 /* harmony import */ var _restaurant_list_restaurant_list_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./restaurant-list/restaurant-list.component */ "./src/app/restaurant-list/restaurant-list.component.ts");
 /* harmony import */ var _restaurant_detail_restaurant_detail_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./restaurant-detail/restaurant-detail.component */ "./src/app/restaurant-detail/restaurant-detail.component.ts");
+/* harmony import */ var _signup_form_signup_form_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./signup-form/signup-form.component */ "./src/app/signup-form/signup-form.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -167,8 +168,10 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var routes = [
     { path: 'login', component: _login_form_login_form_component__WEBPACK_IMPORTED_MODULE_2__["LoginFormComponent"] },
+    { path: 'signup', component: _signup_form_signup_form_component__WEBPACK_IMPORTED_MODULE_7__["SignupFormComponent"] },
     { path: '', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_3__["DashboardComponent"], canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardService"]] },
     { path: 'restaurant', component: _restaurant_list_restaurant_list_component__WEBPACK_IMPORTED_MODULE_5__["RestaurantListComponent"], canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardService"]] },
     { path: 'restaurant/:id', component: _restaurant_detail_restaurant_detail_component__WEBPACK_IMPORTED_MODULE_6__["RestaurantDetailComponent"], canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__["AuthGuardService"]] }
@@ -276,12 +279,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var angular_star_rating__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! angular-star-rating */ "./node_modules/angular-star-rating/esm5/angular-star-rating.js");
 /* harmony import */ var _restaurant_list_restaurant_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./restaurant-list/restaurant-list.component */ "./src/app/restaurant-list/restaurant-list.component.ts");
 /* harmony import */ var _restaurant_detail_restaurant_detail_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./restaurant-detail/restaurant-detail.component */ "./src/app/restaurant-detail/restaurant-detail.component.ts");
+/* harmony import */ var _signup_form_signup_form_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./signup-form/signup-form.component */ "./src/app/signup-form/signup-form.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -305,7 +310,8 @@ var AppModule = /** @class */ (function () {
                 _navbar_navbar_component__WEBPACK_IMPORTED_MODULE_6__["NavbarComponent"],
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_8__["DashboardComponent"],
                 _restaurant_list_restaurant_list_component__WEBPACK_IMPORTED_MODULE_10__["RestaurantListComponent"],
-                _restaurant_detail_restaurant_detail_component__WEBPACK_IMPORTED_MODULE_11__["RestaurantDetailComponent"]
+                _restaurant_detail_restaurant_detail_component__WEBPACK_IMPORTED_MODULE_11__["RestaurantDetailComponent"],
+                _signup_form_signup_form_component__WEBPACK_IMPORTED_MODULE_12__["SignupFormComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -405,6 +411,7 @@ var AuthenticationService = /** @class */ (function () {
         var _this = this;
         this.httpClient = httpClient;
         this.loginUrl = '/login';
+        this.signupUrl = '/signup';
         this.userSub = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
@@ -417,6 +424,9 @@ var AuthenticationService = /** @class */ (function () {
     }
     AuthenticationService.prototype.login = function (login) {
         return this.httpClient.post(this.loginUrl, login, this.httpOptions);
+    };
+    AuthenticationService.prototype.signup = function (signup) {
+        return this.httpClient.post(this.signupUrl, signup, this.httpOptions);
     };
     AuthenticationService.prototype.isAuthenticated = function () {
         if (document.cookie.indexOf("JSESSION") >= 0) {
@@ -542,7 +552,7 @@ module.exports = ".jumbotron {\r\n  /* background: url(\"\"); */\r\n  background
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"container w-25 p-3\">\n    <h1> Sign In</h1>\n    <form (ngSubmit)=\"onSubmit(login)\" #login=\"ngForm\" ngNativeValidate>\n      <div class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input name=\"username\" ngModel type=\"text\" class=\"form-control\" required>\n      </div>\n  \n      <div class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input name=\"password\" ngModel type=\"password\" class=\"form-control\" required>\n      </div>\n      <div class=\"row text-danger container\" *ngIf=\"message\">\n        <p>{{message}}</p>\n      </div>\n      <button type=\"submit\" class=\"btn btn-primary\">Sign in</button> \n      <p>or <a href=\"#\">Sign up</a></p>\n    </form>\n  </div>\n</div>"
+module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"container w-25 p-3\">\n    <h1> Sign In</h1>\n    <form (ngSubmit)=\"onSubmit(login)\" #login=\"ngForm\">\n      <div class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input name=\"username\" ngModel #name=\"ngModel\" type=\"text\" class=\"form-control\" required>\n        <div *ngIf=\"name.invalid && (name.dirty || name.touched)\" class=\"text-danger\">\n          <div *ngIf=\"name.errors.required\">\n            *This field is required\n          </div>\n        </div>\n      </div>\n  \n      <div class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input name=\"password\" ngModel #password=\"ngModel\" type=\"password\" class=\"form-control\" required>\n        <div *ngIf=\"password.invalid && (password.dirty || password.touched)\" class=\"text-danger\">\n          <div *ngIf=\"password.errors.required\">\n            *This field is required\n          </div>\n        </div>\n      </div>\n      <div class=\"row text-danger container\" *ngIf=\"message\">\n        <p>{{message}}</p>\n      </div>\n      <button type=\"submit\" class=\"btn btn-primary\">Sign in</button> \n      <p>or <a routerLink=\"/signup\">Sign up</a></p>\n    </form>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -679,7 +689,7 @@ var NavbarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "button, button:active {\r\n  background-color: #CF1E00;\r\n  border-color: #CF1E00;\r\n  color: #fff;\r\n}\r\n\r\nbutton:hover {\r\n  background-color: #fff;\r\n  border-color: #CF1E00;\r\n  color: #CF1E00;\r\n}\r\n\r\np {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.logo {\r\n  width: 250px;\r\n  height: 250px;\r\n  border-radius: 10px;\r\n  border-style: solid;\r\n  display: flex;\r\n}\r\n\r\nimg {\r\n  width: 200px;\r\n  height: auto;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.title {\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.container {\r\n  margin-left: 0px;\r\n}"
+module.exports = "button, button:active {\r\n  background-color: #CF1E00;\r\n  border-color: #CF1E00;\r\n  color: #fff;\r\n}\r\n\r\nbutton:hover {\r\n  background-color: #fff;\r\n  border-color: #CF1E00;\r\n  color: #CF1E00;\r\n}\r\n\r\np {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.logo {\r\n  width: 250px;\r\n  height: 250px;\r\n  border-radius: 50px;\r\n  border-style: solid;\r\n  display: flex;\r\n}\r\n\r\nimg {\r\n  width: 200px;\r\n  height: auto;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.title {\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.container {\r\n  margin-left: 0px;\r\n}"
 
 /***/ }),
 
@@ -886,6 +896,87 @@ var Review = /** @class */ (function () {
         this.rating = rating;
     }
     return Review;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/signup-form/signup-form.component.css":
+/*!*******************************************************!*\
+  !*** ./src/app/signup-form/signup-form.component.css ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".jumbotron {\r\n  /* background: url(\"\"); */\r\n  background-repeat: no-repeat;\r\n  background-size: cover;\r\n  min-height: 600px;\r\n}\r\n\r\n.container {\r\n  background-color: white;\r\n  border-radius: 2%;\r\n}\r\n\r\n.container > button, p{\r\n  display: inline-block;\r\n  justify-content: space-between;\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/signup-form/signup-form.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/signup-form/signup-form.component.html ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n    <div class=\"container w-50 p-3\">\n      <h1> Sign Up</h1>\n      <form (ngSubmit)=\"onSubmit(signup)\" #signup=\"ngForm\">\n        <div class=\"form-group\">\n          <label for=\"username\">Username</label>\n          <input name=\"username\" ngModel #name=\"ngModel\" type=\"text\" class=\"form-control\" pattern=\"[a-zA-Z0-9_]+\" required>\n          <div *ngIf=\"name.invalid && (name.dirty || name.touched)\" class=\"text-danger\">\n            <div *ngIf=\"name.errors.required\">\n              *This field is required\n            </div>\n            <div *ngIf=\"name.errors.pattern\">\n              *Must contain only alphnumeric characters and underscores(_)\n            </div>\n          </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label for=\"email\">Email (optional)</label>\n            <input name=\"email\" #email=\"ngModel\" ngModel type=\"email\" class=\"form-control\" email required>\n            <div *ngIf=\"email.invalid && (email.dirty || email.touched)\" class=\"text-danger\">\n              <div *ngIf=\"email.errors.required\">\n                  *This field is required\n              </div>\n              <div *ngIf=\"email.errors.email\">\n                  *Incorrect email format\n              </div>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n          <label for=\"password\">Password</label>\n          <input name=\"password\" ngModel #password=\"ngModel\" type=\"password\" class=\"form-control\" minlength=\"8\" maxlength=\"16\" pattern=\"[a-zA-Z0-9_!@#$%^&*-]+\" required>\n          <div *ngIf=\"password.invalid && (password.dirty || password.touched)\" class=\"text-danger\">\n            <div *ngIf=\"password.errors.required\">\n              *This field is required\n            </div>\n            <div *ngIf=\"password.errors.pattern\">\n                *Must contain only alphnumeric characters and the following:_!@#$%^&*-\n            </div>\n            <div *ngIf=\"password.errors.minlength\">\n                *Minimum length of 8 required\n            </div>\n            <div *ngIf=\"password.errors.maxlength\">\n                *Maximum length of 16 required\n            </div>\n          </div>\n        </div>\n\n        <div class=\"form-group\">\n          <label for=\"confirmPassword\">Confirm Password</label>\n          <input name=\"confirmPassword\" #confirmPassword=\"ngModel\" ngModel type=\"password\" class=\"form-control\" minlength=\"8\" maxlength=\"16\" pattern=\"[a-zA-Z0-9_!@#$%^&*-]+\" required>\n          <div *ngIf=\"confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched); else comparePass\" class=\"text-danger\">\n              <div *ngIf=\"confirmPassword.errors.required\">\n                  *This field is required\n              </div>\n              <div *ngIf=\"confirmPassword.errors.pattern\">\n                  *Must contain only alphnumeric characters and the following:_!@#$%^&*-\n              </div>\n              <div *ngIf=\"confirmPassword.errors.minlength\">\n                  *Minimum length of 8 required\n              </div>\n              <div *ngIf=\"confirmPassword.errors.maxlength\">\n                  *Maximum length of 16 required\n              </div>\n          </div>\n          <ng-template #comparePass>\n              <div *ngIf=\"confirmPassword.value !== password.value\" class=\"text-danger\">\n                *Passwords do not match\n              </div>\n          </ng-template>\n        </div>\n\n        <div class=\"row text-danger container\" *ngIf=\"message\">\n          <p>{{message}}</p>\n        </div>\n\n        <button type=\"submit\" class=\"btn btn-primary\" [disabled]=\"!signup.valid || confirmPassword.value !== password.value\">Sign up!</button> \n      </form>\n    </div>\n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/signup-form/signup-form.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/signup-form/signup-form.component.ts ***!
+  \******************************************************/
+/*! exports provided: SignupFormComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupFormComponent", function() { return SignupFormComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../authentication.service */ "./src/app/authentication.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var SignupFormComponent = /** @class */ (function () {
+    function SignupFormComponent(authenticationService, router) {
+        this.authenticationService = authenticationService;
+        this.router = router;
+    }
+    SignupFormComponent.prototype.ngOnInit = function () {
+    };
+    SignupFormComponent.prototype.onSubmit = function (ngform) {
+        var _this = this;
+        this.authenticationService.signup(ngform.value).subscribe(function (user) {
+            localStorage.setItem("user", JSON.stringify(user));
+            _this.router.navigate(['']);
+        }, function (err) {
+            if (err.status == 401) {
+                var body = err.error;
+                _this.message = body.message;
+            }
+        });
+    };
+    SignupFormComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-signup-form',
+            template: __webpack_require__(/*! ./signup-form.component.html */ "./src/app/signup-form/signup-form.component.html"),
+            styles: [__webpack_require__(/*! ./signup-form.component.css */ "./src/app/signup-form/signup-form.component.css")]
+        }),
+        __metadata("design:paramtypes", [_authentication_service__WEBPACK_IMPORTED_MODULE_1__["AuthenticationService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], SignupFormComponent);
+    return SignupFormComponent;
 }());
 
 
