@@ -3,16 +3,15 @@ import { LoginModel } from './login-model';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { User } from './user';
 import { Observable, of, Subject } from 'rxjs';
+import { SignupModel } from './signup-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  signup(value: any): any {
-    throw new Error("Method not implemented.");
-  }
 
-  private loginUrl = '/login'
+  private loginUrl = '/login';
+  private signupUrl= '/signup';
   public user : User;
   private userSub: Subject<User> = new Subject<User>();
 
@@ -29,6 +28,10 @@ export class AuthenticationService {
 
   login(login : LoginModel) : Observable<User>{
     return this.httpClient.post<User>(this.loginUrl, login, this.httpOptions);
+  }
+
+  signup(signup : SignupModel) : Observable<User>{
+    return this.httpClient.post<User>(this.signupUrl, signup, this.httpOptions);
   }
 
   isAuthenticated() : Boolean {
