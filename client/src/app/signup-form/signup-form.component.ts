@@ -18,10 +18,6 @@ export class SignupFormComponent implements OnInit {
   }
 
   onSubmit(ngform : NgForm){
-    if(ngform.value["password"] !== ngform.value["confirmPassword"]){
-      this.message="Passwords do not match";
-      return;
-    }
     this.authenticationService.signup(ngform.value).subscribe(user =>{
       localStorage.setItem("user", JSON.stringify(user));
       this.router.navigate(['']);
