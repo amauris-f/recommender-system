@@ -18,4 +18,6 @@ public interface UserService {
   public List<Review> getRestaurantReviews(int userId, int restId);
 
   public List<Review> getRecentReviews(int id);
+
+  public User getUserByUsername(String username);
 }
