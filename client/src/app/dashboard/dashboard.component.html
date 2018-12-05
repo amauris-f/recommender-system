@@ -2,7 +2,7 @@
   <h1 class="display-3">Welcome,</h1>
   <h3>Your Recent Reviews:</h3>
   <div class="row card-deck">
-    <div class="col-4 card text-center" *ngFor="let review of reviews">
+    <div class="col-md-4 card text-center" *ngFor="let review of reviews">
       <div class="card-body">
         <div class="logo">
           <img src="{{review.item.restaurant.logoPath}}">
