@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public User validOrNull(String username, String password) {
-    User user = userDao.getUserByUsername(username);
+    User user = userDao.getUserByUsername(username.toLowerCase());
     if(user == null){
       return null;
     }
