@@ -1,6 +1,8 @@
 package com.herokuapp.frs.rest;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.herokuapp.frs.entity.Item;
@@ -24,5 +26,11 @@ public class ItemController extends com.herokuapp.frs.rest.RestController{
   public Item getItem(@PathVariable int itemId, HttpServletRequest request){
     authorizeRequest(request);
     return itemService.getItem(itemId); 
+  }
+
+  @GetMapping("/item/recommend/{restaurantId}")
+  public List<Item> getRecommendedItems(@PathVariable int restaurantId, HttpServletRequest request){
+    int userId = authorizeRequest(request).getUser().getId();
+    return itemService.getRecommended(userId, restaurantId);
   }
 }
