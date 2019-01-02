@@ -13,6 +13,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
+import { RecommendationListComponent } from './recommendation-list/recommendation-list.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
     DashboardComponent,
     RestaurantListComponent,
     RestaurantDetailComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    RecommendationListComponent
   ],
   imports: [
     BrowserModule,
