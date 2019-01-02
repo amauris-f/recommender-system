@@ -31,6 +31,12 @@ public class ItemController extends com.herokuapp.frs.rest.RestController{
   @GetMapping("/item/recommend/{restaurantId}")
   public List<Item> getRecommendedItems(@PathVariable int restaurantId, HttpServletRequest request){
     int userId = authorizeRequest(request).getUser().getId();
-    return itemService.getRecommended(userId, restaurantId);
+    return itemService.getRecommendedByRestaurant(userId, restaurantId);
+  }
+
+  @GetMapping("/item/recommend")
+  public List<Item> getRecommendedAllRestaurants(HttpServletRequest request){
+    int userId = authorizeRequest(request).getUser().getId();
+    return itemService.getRecommendedAllRestaurants(userId);
   }
 }
