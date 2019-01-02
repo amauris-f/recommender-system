@@ -1,0 +1,13 @@
+.logo {
+  height: 50px;
+  display: block;
+}
+
+img {
+  height: 100%;
+  width: auto;
+}
+
+.card {
+  cursor: pointer;
+}

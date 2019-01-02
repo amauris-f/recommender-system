@@ -1,0 +1,12 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 card text-center" *ngFor="let item of recommended_items" routerLink="/restaurant/{{item.restaurant.id}}">
+        <div class="card-body">
+          <div class="logo">
+            <img src="{{item.restaurant.logoPath}}">
+          </div>
+          <p>{{item.name}}</p>
+      </div>
+    </div>
+  </div>
+</div>
