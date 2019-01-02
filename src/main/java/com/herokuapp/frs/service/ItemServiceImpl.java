@@ -23,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
     "ORDER BY rank DESC;";
     
   //Format String - 1st parameter: User id, 1nd parameter: Restaurant id
-  private static final String recommendedItems = "SELECT items.item_id FROM(SELECT users_revs.item_id, item_details.restaurant_id, sum(similar_ranked.rank) total_rank " + 
+  private static final String recommendedItemsByRestaurant = "SELECT items.item_id FROM(SELECT users_revs.item_id, item_details.restaurant_id, sum(similar_ranked.rank) total_rank " + 
   " FROM similar_ranked " +
   " join recommender_system.review users_revs on similar_ranked.user_id = users_revs.user_id " +
   " left join recommender_system.review target on target.user_id = %d AND target.item_id = users_revs.item_id " +
@@ -33,6 +33,15 @@ public class ItemServiceImpl implements ItemService {
   " HAVING avg(users_revs.rating) >= 3 " +
   " ORDER BY total_rank DESC " +
   " LIMIT 5) as items;";
+
+  private static final String recommendedItemsAll = "SELECT items.item_id FROM(SELECT users_revs.item_id, sum(similar_ranked.rank) total_rank " +
+  "FROM similar_ranked " +
+  "join recommender_system.review users_revs on similar_ranked.user_id = users_revs.user_id " +
+  "left join recommender_system.review target on target.user_id = %d AND target.item_id = users_revs.item_id " +
+  "WHERE target.item_id is null " +
+  "GROUP BY users_revs.item_id " +
+  " HAVING avg(users_revs.rating) >= 3 " +
+  "ORDER BY total_rank DESC LIMIT 21) as items;";
 
   private static final String dropTempTable = "DROP TABLE similar_ranked";
 
@@ -53,12 +62,22 @@ public class ItemServiceImpl implements ItemService {
 
   @Override
   @Transactional
-  public List<Item> getRecommended(int userId, int restaurantId) {
+  public List<Item> getRecommendedByRestaurant(int userId, int restaurantId) {
     itemDao.ddlQuery(String.format(similarUsersTempTable, userId));
-    NativeQuery<?> recommendedItemIds = itemDao.selectQuery(String.format(recommendedItems, userId, restaurantId));
+    NativeQuery<?> recommendedItemIds = itemDao.selectQuery(String.format(recommendedItemsByRestaurant, userId, restaurantId));
     List<Integer> idsList =(List<Integer>)(recommendedItemIds.getResultList());
     itemDao.ddlQuery(dropTempTable);
-    return itemDao.getRecommendedItems(idsList, restaurantId);
+    return itemDao.getRecommendedItems(idsList);
+  }
+
+  @Override
+  @Transactional
+  public List<Item> getRecommendedAllRestaurants(int userId) {
+    itemDao.ddlQuery(String.format(similarUsersTempTable, userId));
+    NativeQuery<?> recommendedItemIds = itemDao.selectQuery(String.format(recommendedItemsAll, userId));
+    List<Integer> idsList =(List<Integer>)(recommendedItemIds.getResultList());
+    itemDao.ddlQuery(dropTempTable);
+    return itemDao.getRecommendedItems(idsList);
   }
 
 }
