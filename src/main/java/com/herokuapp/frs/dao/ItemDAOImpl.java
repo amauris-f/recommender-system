@@ -23,9 +23,9 @@ public class ItemDAOImpl implements ItemDAO {
   }
 
   @Override
-  public List<Item> getRecommendedItems(List<Integer> itemIds, int restaurant_id) {
+  public List<Item> getRecommendedItems(List<Integer> itemIds) {
     Session currentSession = sessionFactory.getCurrentSession();
-    String hql = "FROM Item WHERE id IN :itemIds AND restaurant_id=" + restaurant_id;
+    String hql = "FROM Item WHERE id IN :itemIds";
     List<Item> items = currentSession.createQuery(hql, Item.class).setParameterList("itemIds", itemIds).getResultList();
     return items;
   }

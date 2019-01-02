@@ -8,7 +8,7 @@ import org.hibernate.query.NativeQuery;
 
 public interface ItemDAO {
   public Item getItem(int itemId);
-  public List<Item> getRecommendedItems(List<Integer> itemIds, int restaurantId);
+  public List<Item> getRecommendedItems(List<Integer> itemIds);
   public List<Item> getMenu(int restaurantId);
   public void ddlQuery(String statement);
   public NativeQuery<?> selectQuery(String statement);
