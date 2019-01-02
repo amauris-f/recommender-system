@@ -1,14 +1,16 @@
 <div class="container-fluid" id="recent">
   <h1 class="display-3">Welcome,</h1>
-  <h3>Your Recent Reviews:</h3>
-  <div class="row card-deck">
-    <div class="col-md-4 card text-center" *ngFor="let review of reviews">
-      <div class="card-body">
-        <div class="logo">
-          <img src="{{review.item.restaurant.logoPath}}">
+  <div *ngIf="reviews && reviews.length>0">
+    <h3>Your Recent Reviews:</h3>
+    <div class="row card-deck">
+      <div class="col-md-4 card text-center" *ngFor="let review of reviews">
+        <div class="card-body">
+          <div class="logo">
+            <img src="{{review.item.restaurant.logoPath}}">
+          </div>
+          <h5 class="card-title">{{review.item.name}}</h5>
+          <star-rating [readOnly]="true" [rating]="review.rating"></star-rating>
         </div>
-        <h5 class="card-title">{{review.item.name}}</h5>
-        <star-rating [readOnly]="true" [rating]="review.rating"></star-rating>
       </div>
     </div>
   </div>
@@ -21,7 +23,10 @@
 <div class="container-fluid comp text-center">
     <h1 class="display-3">Try Something New</h1>
     <p class="lead">We use the reviews that you give us to find users that have similar tastes. This allows us to predict and recommend foods that you may like, but haven't tried yet.
-      Click below to find out the most recommended foods for you, compared between all restaurants. (Coming soon)
-    </p>  
-    <button [routerLink]="['/recommend']" class="btn btn-primary main">Give me some food!</button>
+      Click below to find out the most recommended foods for you, compared between all restaurants.
+    </p>
+    <button [routerLink]="['/recommend']" [disabled]="reviews && reviews.length<5" class="btn btn-primary main">Give me some food!</button>
+    <div class="comp" *ngIf="reviews && reviews.length<5">
+      <p class="lead">You must make some more reviews before we can make recommendations for you</p>
+    </div> 
 </div>
