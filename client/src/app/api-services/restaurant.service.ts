@@ -9,6 +9,7 @@ import { Item } from '../item';
 })
 export class RestaurantService {
   private url = "/api/restaurants";
+  private item_url = "/api/item";
   constructor(private http : HttpClient) { }
 
   getAll() : Observable<Restaurant[]> {
@@ -17,6 +18,16 @@ export class RestaurantService {
 
   getMenu(restId) : Observable<Item[]> {
     const path = `${this.url}/${restId}/menu`;
+    return this.http.get<Item[]>(path);
+  }
+
+  getRecommendedByRestaurant(restId) : Observable<Item[]> {
+    const path = `${this.item_url}/recommend/${restId}`;
+    return this.http.get<Item[]>(path);
+  }
+
+  getRecommendedAll() : Observable<Item[]> {
+    const path = `${this.item_url}/recommend`;
     return this.http.get<Item[]>(path);
   }
 }
