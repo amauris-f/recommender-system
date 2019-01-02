@@ -1,5 +1,6 @@
 package com.herokuapp.frs.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -67,6 +68,9 @@ public class ItemServiceImpl implements ItemService {
     NativeQuery<?> recommendedItemIds = itemDao.selectQuery(String.format(recommendedItemsByRestaurant, userId, restaurantId));
     List<Integer> idsList =(List<Integer>)(recommendedItemIds.getResultList());
     itemDao.ddlQuery(dropTempTable);
+    if(idsList.size() == 0){
+      return new LinkedList<Item>();
+    }
     return itemDao.getRecommendedItems(idsList);
   }
 
@@ -77,6 +81,9 @@ public class ItemServiceImpl implements ItemService {
     NativeQuery<?> recommendedItemIds = itemDao.selectQuery(String.format(recommendedItemsAll, userId));
     List<Integer> idsList =(List<Integer>)(recommendedItemIds.getResultList());
     itemDao.ddlQuery(dropTempTable);
+    if(idsList.size() == 0){
+      return new LinkedList<Item>();
+    }
     return itemDao.getRecommendedItems(idsList);
   }
 
