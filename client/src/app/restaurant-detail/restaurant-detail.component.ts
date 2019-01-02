@@ -16,6 +16,7 @@ import { RatingChangeEvent } from 'angular-star-rating';
 export class RestaurantDetailComponent implements OnInit {
   private reviews: Review[];
   private menu: Item[];
+  private recommended: Item[];
   private selectedReview: Review;
   private selectedOrigRating: Number;
   private restaurant: Restaurant;
@@ -27,12 +28,19 @@ export class RestaurantDetailComponent implements OnInit {
     this.getMenu();
   }
 
+  private getRecommended(){
+    this.restService.getRecommendedByRestaurant(this.restaurant.id).subscribe(recommend =>{
+      this.recommended = recommend;
+    });
+  }
+
 
   private addNotReviewed(): any {
     this.menu.forEach(item => {
       if(this.reviews.filter(review =>
         review.item.id === item.id).length == 0){
           this.reviews.push(new Review(null, item, 0));
+          this.getRecommended();
         }
     });
   }
