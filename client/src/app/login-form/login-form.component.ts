@@ -17,6 +17,9 @@ export class LoginFormComponent implements OnInit {
   public message : String;
 
   ngOnInit() {
+    if(this.authenticationService.isAuthenticated()){
+      this.router.navigate(['']);
+    }
   }
 
   onSubmit(ngform : NgForm){
