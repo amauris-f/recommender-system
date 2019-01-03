@@ -1,8 +1,9 @@
 .jumbotron {
-  /* background: url(""); */
+  /*background: url("../../assets/images/");*/
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 600px;
+  height: 100vh;
+  margin-bottom: 0;
 }
 
 .container {
