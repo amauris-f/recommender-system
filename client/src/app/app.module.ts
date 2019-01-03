@@ -14,6 +14,7 @@ import { RestaurantListComponent } from './restaurant-list/restaurant-list.compo
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { RecommendationListComponent } from './recommendation-list/recommendation-list.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RecommendationListComponent } from './recommendation-list/recommendatio
     RestaurantListComponent,
     RestaurantDetailComponent,
     SignupFormComponent,
-    RecommendationListComponent
+    RecommendationListComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
