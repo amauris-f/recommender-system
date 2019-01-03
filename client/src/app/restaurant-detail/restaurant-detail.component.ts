@@ -14,8 +14,8 @@ import { RatingChangeEvent } from 'angular-star-rating';
   styleUrls: ['./restaurant-detail.component.css']
 })
 export class RestaurantDetailComponent implements OnInit {
-  private reviews: Review[];
-  private menu: Item[];
+  reviews: Review[];
+  menu: Item[];
   private recommended: Item[];
   private selectedReview: Review;
   private selectedOrigRating: Number;

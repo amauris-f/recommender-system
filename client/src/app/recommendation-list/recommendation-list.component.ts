@@ -9,7 +9,7 @@ import { RestaurantService } from '../api-services/restaurant.service';
 })
 export class RecommendationListComponent implements OnInit {
 
-  private recommended_items: Item[];
+  recommended_items: Item[];
   constructor(private restaurantServ : RestaurantService) { }
 
   ngOnInit() {
