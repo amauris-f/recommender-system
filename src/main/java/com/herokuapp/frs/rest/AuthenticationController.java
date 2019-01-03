@@ -15,9 +15,11 @@ import com.herokuapp.frs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class AuthenticationController extends com.herokuapp.frs.rest.RestController {
@@ -38,6 +40,20 @@ public class AuthenticationController extends com.herokuapp.frs.rest.RestControl
     response.addCookie(cookie);
     userSessionService.createUserSession(user, uuid, expiry);
     return user;
+  }
+
+  @GetMapping("/login")
+  public ModelAndView login(){
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("index");
+    return mav;
+  }
+
+  @GetMapping("/signup")
+  public ModelAndView signup(){
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("index");
+    return mav;
   }
 
   @PostMapping("/signup")
